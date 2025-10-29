@@ -114,7 +114,7 @@ class ProblemSolutions {
     public int[] sort2Arrays(int[] array1, int[] array2) {
 
         // Create a minHeap to store elements from the arrays being sorted
-        PriorithQueue<Integer> minHeap = new PriorithQueue<>();
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
 
         // Add array 1 elements into the minHeap
         for (int n : array1) {
