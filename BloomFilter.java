@@ -237,6 +237,7 @@ class BloomFilter {
             }
         }
 
+        // Return true since most probably in the set
         return true;
     }
 
