@@ -246,38 +246,53 @@ public class CuckooHash<K, V> {
 
  	public void put(K key, V value) {
 
-		if (key == null) return;
+		// If a null key, return
+		if (key == null) {
+			return;
+		}
 
+		// Define the first and second hash spots for this key
 		int p1 = hash1(key);
 		int p2 = hash2(key);
 		
+		// If the exact key & value pair already exists in the table, do not insert it again
 		if ((table[p1] != null && key.equals(table[p1].getBucKey()) && value.equals(table[p1].getValue())) || (table[p2] != null && key.equals(table[p2].getBucKey()) && value.equals(table[p2].getValue()))) {
 			return;
 		}
 		
+		// Track the key & value pair that still needs to be inserted
+		// Begin at the pair's h1 position always
 		K curKey = key;
 		V curVal = value;
 		int pos = p1;
 
+		// Only allow for 'capacity' amount of displacements
+		// Rehash if capacity is reached
 		for (int i = 0; i < CAPACITY; i++) {
+			// If the pair's hash spot is open, place the pair in it
 			if (table[pos] == null) {
 				table[pos] = new Bucket<>(curKey, curVal);
 				return;
 			}
 
+			// If the pair's hash spot is not open, make note of and remove the current occupant, and place the pair into its hash spot
 			Bucket<K, V> kicked = table[pos];
 			table[pos] = new Bucket<>(curKey, curVal);
 
+			// Get the previously kicked out pair's new hash spot
 			curKey = kicked.getBucKey();
 			curVal = kicked.getValue();
 
+			// Place the kicked out element into its h2 spot, or if it was at h2, place it at h1
 			if (pos == hash1(curKey)) {
-				post = hash2(curKey);
+				pos = hash2(curKey);
 			} else {
 				pos = hash1(curKey);
 			}
 		}
-
+		
+		// If capacity hashes are reached, make the table larger and rehash
+		// Insert the last pair
 		rehash();
 		put(curKey, curVal);
 		
