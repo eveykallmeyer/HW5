@@ -53,6 +53,8 @@ class ProblemSolutions {
             if (!set.contains(y)) {
                 return false;
             }
+        }
+
         return true;
     }
 
@@ -74,7 +76,7 @@ class ProblemSolutions {
 
         // Check that length of the array is not null and is at least k long
         if (array == null || array.length == 0 || k < 1 || k > array.length) {
-            throw new IllegalArgumentException("Invalid input")
+            throw new IllegalArgumentException("Invalid input");
         }
 
         // Create a minHeap with a size of k
@@ -87,7 +89,7 @@ class ProblemSolutions {
             // Check if the heap has more than k elements, and if so, remove the root
             // Make once the heap is down to k elements, the root is now the k-th largest element
             if (minHeap.size() > k) {
-                minHeap.poll():
+                minHeap.poll();
             }
         }
 
@@ -112,7 +114,7 @@ class ProblemSolutions {
     public int[] sort2Arrays(int[] array1, int[] array2) {
 
         // Create a minHeap to store elements from the arrays being sorted
-        PriorithQueue<Integer> minHeap = new PriorithQueue<>():
+        PriorithQueue<Integer> minHeap = new PriorithQueue<>();
 
         // Add array 1 elements into the minHeap
         for (int n : array1) {
