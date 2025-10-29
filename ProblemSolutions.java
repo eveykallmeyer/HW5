@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Evey Kallmeyer / COMP 272-002
  *
  *   This java file contains the problem solutions of isSubSet, findKthLargest,
  *   and sort2Arrays methods. You should utilize the Java Collection Framework for
@@ -32,9 +32,28 @@ class ProblemSolutions {
 
     public boolean isSubset(int list1[], int list2[]) {
 
-        // ADD YOU CODE HERE -- DON'T FORGET TO ADD YOR NAME AT TOP OF FILE
+        // Check if Subset A is null
+        if (list1 == null || list1.length == 0) {
+            return false;
+        }
 
-        return false;
+        // Check if Subset B is null
+        if (list2 == null || list2.length == 0) {
+            return true;
+        }
+
+        // Build a hash set of Subset A
+        HashSet<Integer> set = new HashSet<>(Math.max(16, list1.length * 2));
+        for (int x : list1) {
+            set.add(x);
+        }
+
+        // Check for Subset B's elements
+        for (int y : list2) {
+            if (!set.contains(y)) {
+                return false;
+            }
+        return true;
     }
 
 
@@ -53,9 +72,27 @@ class ProblemSolutions {
 
     public int findKthLargest(int[] array, int k) {
 
-        // ADD YOUR CODE HERE
+        // Check that length of the array is not null and is at least k long
+        if (array == null || array.length == 0 || k < 1 || k > array.length) {
+            throw new IllegalArgumentException("Invalid input")
+        }
 
-        return 0;
+        // Create a minHeap with a size of k
+        // Use a minheap so you know the smallest integers are towards the root/start of the array
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>(k);
+
+        // Check each element in the array
+        for (int num : array) {
+            minHeap.offer(num);
+            // Check if the heap has more than k elements, and if so, remove the root
+            // Make once the heap is down to k elements, the root is now the k-th largest element
+            if (minHeap.size() > k) {
+                minHeap.poll():
+            }
+        }
+
+        // Return the k-th largest element
+        return minHeap.peek();
     }
 
 
@@ -74,9 +111,29 @@ class ProblemSolutions {
 
     public int[] sort2Arrays(int[] array1, int[] array2) {
 
-        // ADD YOU CODE HERE
+        // Create a minHeap to store elements from the arrays being sorted
+        PriorithQueue<Integer> minHeap = new PriorithQueue<>():
 
-        return null;
+        // Add array 1 elements into the minHeap
+        for (int n : array1) {
+            minHeap.offer(n);
+        }
+
+        // Add array 2 elements into the minHeap
+        for (int n : array2) {
+            minHeap.offer(n);
+        }
+
+        // Make the sortedArray's length equal to the sum of the lengths of each original array
+        int[] sortedArray = new int[array1.length + array2.length];
+
+        // Add elements from the minHeap into the sortedArray
+        // Use .poll so they are entered in the sorted order
+        for (int i = 0; i < sortedArray.length; i++) {
+            sortedArray[i] = minHeap.poll();
+        }
+
+        return sortedArray;
     }
 
 }
